@@ -17,3 +17,5 @@ buildNumber.properties
 .metadata/
 *.factorypath
 Servers/
+.idea/
+*.iml

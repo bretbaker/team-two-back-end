@@ -30,4 +30,7 @@ public class UserService {
         userDAO.update(user);
     }
 
+    public User findUserById(int id) { return userDAO.findUserById(id); }
+    public void delete(User user) {  userDAO.delete(user); }
+
 }

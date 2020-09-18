@@ -25,6 +25,18 @@ public class UserDAO {
         return result;
     }
 
+    public User findUserById(int user_id) {
+        Session session = HibernateUtil.getSession();
+        Transaction tx = session.beginTransaction();
+
+        User result = (User) session.createQuery("FROM User u where id = ?1", User.class)
+                .setParameter(1, user_id)
+                .getSingleResult();
+
+        tx.commit();
+        return result;
+    }
+
 
     public void save(User user) {
         Session session = HibernateUtil.getSession();
@@ -42,6 +54,15 @@ public class UserDAO {
         Transaction tx = session.beginTransaction();
 
         session.merge(user);
+
+        tx.commit();
+    }
+
+    public void delete(User user) {
+        Session session = HibernateUtil.getSession();
+        Transaction tx = session.beginTransaction();
+
+        session.delete(user);
 
         tx.commit();
     }

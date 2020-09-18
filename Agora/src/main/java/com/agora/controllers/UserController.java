@@ -20,6 +20,7 @@ import com.agora.services.UserService;
 @Controller
 @RequestMapping("user")
 public class UserController {
+
     private UserService service;
 
     @Autowired
@@ -27,13 +28,22 @@ public class UserController {
         this.service = userService;
     }
 
-
-    
     @GetMapping(produces = "application/json")
     @ResponseBody
     public ResponseEntity<Set<User>> findAll() {
         Set<User> result = service.findAll();
         if(result.isEmpty()) {
+            return ResponseEntity.noContent().build();
+        }
+
+        return ResponseEntity.ok(result);
+    }
+
+    @GetMapping(value = "{id}", produces = "application/json")
+    @ResponseBody
+    public ResponseEntity<User> findById(@PathVariable String id) {
+        User result = service.findUserById(Integer.parseInt(id));
+        if(result == null) {
             return ResponseEntity.noContent().build();
         }
 
@@ -56,5 +66,20 @@ public class UserController {
         }
 
         return ResponseEntity.accepted().body(user);
+    }
+
+    @DeleteMapping(value = "{id}")
+    @ResponseBody
+    public ResponseEntity<Boolean> delete(@PathVariable String id){
+
+        User user = service.findUserById(Integer.parseInt(id));
+
+        if(user == null){
+            return ResponseEntity.badRequest().build();
+        }
+
+        service.delete(user);
+
+        return ResponseEntity.accepted().body(true);
     }
 }

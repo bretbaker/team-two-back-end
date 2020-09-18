@@ -6,6 +6,7 @@ import org.hibernate.Session;
 import org.hibernate.Transaction;
 import org.springframework.stereotype.Repository;
 
+import javax.persistence.NoResultException;
 import java.util.Set;
 import java.util.stream.Collectors;
 
@@ -28,13 +29,19 @@ public class UserDAO {
     public User findUserById(int user_id) {
         Session session = HibernateUtil.getSession();
         Transaction tx = session.beginTransaction();
-
-        User result = (User) session.createQuery("FROM User u where id = ?1", User.class)
+    try {
+        User result = session.createQuery("FROM User u where id = ?1", User.class)
                 .setParameter(1, user_id)
                 .getSingleResult();
 
         tx.commit();
         return result;
+    } catch(NoResultException e) {
+        e.printStackTrace();
+        tx.rollback();
+        return null;
+    }
+
     }
 
 

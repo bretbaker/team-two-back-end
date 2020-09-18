@@ -18,6 +18,7 @@ import com.agora.services.UserService;
 
 
 @Controller
+@RequestMapping("user")
 public class UserController {
     private UserService service;
 
@@ -27,7 +28,8 @@ public class UserController {
     }
 
 
-    @GetMapping(path = "user", produces = "application/json")
+    
+    @GetMapping(produces = "application/json")
     @ResponseBody
     public ResponseEntity<Set<User>> findAll() {
         Set<User> result = service.findAll();
@@ -39,7 +41,7 @@ public class UserController {
     }
 
 
-    @PostMapping("user")
+    @PostMapping
     @ResponseBody
     public ResponseEntity<User> insert(@RequestBody User user) {
         if(user.getId() != 0) {

@@ -4,13 +4,15 @@ import java.util.Set;
 
 import javax.persistence.*;
 
+import com.agora.services.HashingService;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
+import org.springframework.beans.factory.annotation.Autowired;
 
 @Entity
 @Table(name = "users")
-
+@EntityListeners(HashingService.class)
 public class User {
 	
 	@Id
@@ -19,11 +21,15 @@ public class User {
 	private String firstName;
 	private String lastName;
 	private String userName;
+
+//	The Password is hashed prior to persistence, check the setHashedPassword function in the HashingService class.
+//  This also would not be possible without the help of the EntityListener annotation.
 	private String password;
 	private String email;
 	
 	@OneToMany(targetEntity = Article.class, mappedBy = "user", fetch = FetchType.EAGER, cascade = CascadeType.ALL)
 	private Set<Article> articles;
+
 
 	public User() {
 		super();
@@ -164,3 +170,5 @@ public class User {
 	
 
 }
+
+

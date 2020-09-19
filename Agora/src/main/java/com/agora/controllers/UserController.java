@@ -74,7 +74,7 @@ public class UserController {
     }
 
     @CrossOrigin
-    @PostMapping
+    @PostMapping(name = "/login")
     @ResponseBody
     public ResponseEntity<User> signIn(@RequestBody User user) {
         if(user.getUserName() == null) {

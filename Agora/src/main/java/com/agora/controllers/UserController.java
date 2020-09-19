@@ -73,16 +73,16 @@ public class UserController {
         return ResponseEntity.accepted().body(user);
     }
 
-    @CrossOrigin
-    @PostMapping(name = "/login")
-    @ResponseBody
-    public ResponseEntity<User> signIn(@RequestBody User user) {
-        if(user.getUserName() == null) {
-            return ResponseEntity.badRequest().build();
-        }
-        service.checkUsername(user);
-        return ResponseEntity.accepted().body(user);
-    }
+//    @CrossOrigin
+//    @PostMapping(name = "/login")
+//    @ResponseBody
+//    public ResponseEntity<User> signIn(@RequestBody User user) {
+//        if(user.getUserName() == null) {
+//            return ResponseEntity.badRequest().build();
+//        }
+//        service.checkUsername(user);
+//        return ResponseEntity.accepted().body(user);
+//    }
 
     @CrossOrigin
     @DeleteMapping(value = "{id}")

@@ -10,6 +10,8 @@ import com.agora.services.HashingService;
 //import lombok.NoArgsConstructor;
 //import org.springframework.beans.factory.annotation.Autowired;
 
+// this is my test comment
+
 @Entity
 @Table(name = "users")
 @EntityListeners(HashingService.class)

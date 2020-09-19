@@ -1,26 +1,18 @@
 package com.agora.controllers;
-import com.agora.Filters.CorsFilter;
 import com.agora.services.HashingService;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.context.annotation.ComponentScan;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
-
 import java.util.Set;
-
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.ResponseBody;
-
 import com.agora.models.User;
 import com.agora.services.UserService;
-
-import javax.persistence.EntityListeners;
-
 
 @Controller
 @CrossOrigin(origins = "http://localhost:4200")
@@ -70,7 +62,6 @@ public class UserController {
             return ResponseEntity.badRequest().build();
         }
 
-//        user.setPassword(hashingService.hashPassword(user.getPassword()));
 
         service.save(user);
 
@@ -78,6 +69,19 @@ public class UserController {
             // Failed to insert properly
             return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).build();
         }
+
+        return ResponseEntity.accepted().body(user);
+    }
+
+    @CrossOrigin
+    @PostMapping
+    @ResponseBody
+    public ResponseEntity<User> signIn(@RequestBody User user) {
+        if(user.getUserName() == null) {
+            return ResponseEntity.badRequest().build();
+        }
+
+        service.checkUsername(user);
 
         return ResponseEntity.accepted().body(user);
     }

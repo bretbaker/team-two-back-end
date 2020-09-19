@@ -84,7 +84,14 @@ public class UserController {
         }
         boolean usernameExists = service.checkUsername(loginTemplate);
         if(usernameExists){
-            return ResponseEntity.accepted().body(service.findByUserName(loginTemplate));
+            User curr_user = service.findByUserName(loginTemplate);
+            boolean password_matches = hashingService.checkHashedPassword(loginTemplate.getPassword(), curr_user.getPassword());
+            if(password_matches){
+                return ResponseEntity.accepted().body(service.findByUserName(loginTemplate));
+            } else {
+                return ResponseEntity.badRequest().build();
+            }
+
         } else {
             return ResponseEntity.badRequest().build();
         }

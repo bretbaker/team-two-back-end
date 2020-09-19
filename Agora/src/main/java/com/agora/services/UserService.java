@@ -33,6 +33,14 @@ public class UserService {
     public User findUserById(int id) { return userDAO.findUserById(id); }
     public void delete(User user) {  userDAO.delete(user); }
 
-    public User checkUsername(User u) { return u; }
+    public Boolean checkUsername(User user) {
+        User u = userDAO.findByUsername(user.getUserName());
+
+        if(u == null) {
+            return false;
+        } else {
+            return true;
+        }
+    }
 
 }

@@ -1,4 +1,5 @@
 package com.agora.controllers;
+import com.agora.models.LoginTemplate;
 import com.agora.services.HashingService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -76,14 +77,14 @@ public class UserController {
     @CrossOrigin
     @RequestMapping(value = "/login", method = RequestMethod.POST)
     @ResponseBody
-    public ResponseEntity<User> signIn(@RequestBody User user) {
+    public ResponseEntity<User> signIn(@RequestBody LoginTemplate loginTemplate) {
 
-        if(user.getUserName() == null) {
+        if(loginTemplate.getUserName() == null) {
             return ResponseEntity.badRequest().build();
         }
-        boolean usernameExists = service.checkUsername(user);
+        boolean usernameExists = service.checkUsername(loginTemplate);
         if(usernameExists){
-            return ResponseEntity.accepted().body(user);
+            return ResponseEntity.accepted().body(service.findByUserName(loginTemplate));
         } else {
             return ResponseEntity.badRequest().build();
         }

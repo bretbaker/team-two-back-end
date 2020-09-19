@@ -1,5 +1,6 @@
 package com.agora.services;
 
+import com.agora.models.LoginTemplate;
 import com.agora.models.User;
 import com.agora.repositories.UserDAO;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -33,6 +34,18 @@ public class UserService {
     public User findUserById(int id) { return userDAO.findUserById(id); }
     public void delete(User user) {  userDAO.delete(user); }
 
-    public User checkUsername(User u) { return u; }
+    public Boolean checkUsername(LoginTemplate loginTemplate) {
+        User u = userDAO.findByUsername(loginTemplate.getUserName());
+
+        if(u == null) {
+            return false;
+        } else {
+            return true;
+        }
+    }
+
+    public User findByUserName(LoginTemplate loginTemplate){
+        return userDAO.findByUsername(loginTemplate.getUserName());
+    }
 
 }

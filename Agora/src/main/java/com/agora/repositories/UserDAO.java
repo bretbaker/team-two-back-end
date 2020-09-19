@@ -73,4 +73,22 @@ public class UserDAO {
 
         tx.commit();
     }
+
+    public User findByUsername(String username) {
+        Session session = HibernateUtil.getSession();
+        Transaction tx = session.beginTransaction();
+        try {
+            User result = session.createQuery("FROM User u where userName = ?1", User.class)
+                    .setParameter(1, username)
+                    .getSingleResult();
+
+            tx.commit();
+            return result;
+        } catch(NoResultException e) {
+            e.printStackTrace();
+            tx.rollback();
+            return null;
+        }
+
+    }
 }

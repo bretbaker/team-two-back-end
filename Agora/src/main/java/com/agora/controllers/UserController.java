@@ -80,9 +80,7 @@ public class UserController {
         if(user.getUserName() == null) {
             return ResponseEntity.badRequest().build();
         }
-
         service.checkUsername(user);
-
         return ResponseEntity.accepted().body(user);
     }
 

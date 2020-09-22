@@ -1,10 +1,7 @@
 package com.agora.controllers;
 import com.agora.models.Article;
-import com.agora.models.LoginTemplate;
 import com.agora.services.ArticleService;
-import com.agora.services.HashingService;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.context.annotation.ComponentScan;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
@@ -18,12 +15,12 @@ import java.util.Set;
 public class ArticleController {
 	
 	private ArticleService service;
-	
+
 	@Autowired
     public ArticleController(ArticleService service) {
         this.service = service;
     }
-	
+
 	@CrossOrigin
     @GetMapping(produces = "application/json")
     @ResponseBody
@@ -35,7 +32,7 @@ public class ArticleController {
 
         return ResponseEntity.ok(result);
     }
-	
+
 	@CrossOrigin
     @GetMapping(value = "{id}", produces = "application/json")
     @ResponseBody
@@ -47,26 +44,26 @@ public class ArticleController {
 
         return ResponseEntity.ok(result);
     }
-	
+
 	@CrossOrigin
     @PostMapping
     @ResponseBody
     public ResponseEntity<Article> insertArticle(@RequestBody Article article) {
-        if(article.getId() != 0) {
+        if(article.getArticle_id() != 0) {
             return ResponseEntity.badRequest().build();
         }
 
 
         service.save(article);
 
-        if(article.getId() == 0) {
+        if(article.getArticle_id() == 0) {
             // Failed to insert properly
             return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).build();
         }
 
         return ResponseEntity.accepted().body(article);
     }
-	
+
 	@CrossOrigin
     @DeleteMapping(value = "{id}")
     @ResponseBody

@@ -32,7 +32,7 @@ public class ArticleDAO {
         Session session = HibernateUtil.getSession();
         Transaction tx = session.beginTransaction();
     try {
-        Article result = session.createQuery("FROM Article a where id = ?1", Article.class)
+        Article result = session.createQuery("FROM Article a where article_id = ?1", Article.class)
                 .setParameter(1, ar_id)
                 .getSingleResult();
 

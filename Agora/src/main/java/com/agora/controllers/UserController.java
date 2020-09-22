@@ -2,7 +2,6 @@ package com.agora.controllers;
 import com.agora.models.LoginTemplate;
 import com.agora.services.HashingService;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.context.annotation.ComponentScan;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
@@ -74,14 +73,14 @@ public class UserController {
     @PostMapping
     @ResponseBody
     public ResponseEntity<User> insert(@RequestBody User user) {
-        if(user.getId() != 0) {
+        if(user.getUser_id() != 0) {
             return ResponseEntity.badRequest().build();
         }
 
 
         service.save(user);
 
-        if(user.getId() == 0) {
+        if(user.getUser_id() == 0) {
             // Failed to insert properly
             return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).build();
         }

@@ -30,7 +30,7 @@ public class UserDAO {
         Session session = HibernateUtil.getSession();
         Transaction tx = session.beginTransaction();
     try {
-        User result = session.createQuery("FROM User u where id = ?1", User.class)
+        User result = session.createQuery("FROM User u where user_id = ?1", User.class)
                 .setParameter(1, user_id)
                 .getSingleResult();
 

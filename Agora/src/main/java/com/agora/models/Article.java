@@ -4,19 +4,18 @@ import java.util.Arrays;
 
 import javax.persistence.*;
 
-import lombok.Data;
-import lombok.NoArgsConstructor;
-
 @Entity
 @Table(name = "articles")
 public class Article {
 	
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
-	private int id;
+	private int article_id;
 
-	@ManyToOne(targetEntity = User.class, fetch = FetchType.EAGER)
+	@ManyToOne(fetch = FetchType.LAZY)
+	@JoinColumn(name="user_id")
 	private User user;
+	private String title;
 	private String description;
 	private byte[] image;
 	private String publishedAt;
@@ -26,22 +25,23 @@ public class Article {
 	public Article() {
 		super();
 	}
-	public Article(int id, User user, String description, byte[] image, String publishedAt, String content,
-			int status) {
+	public Article(int article_id, User user, String title, String description, byte[] image, String publishedAt, String content,
+				   int status) {
 		super();
-		this.id = id;
+		this.article_id = article_id;
 		this.user = user;
+		this.title = title;
 		this.description = description;
 		this.image = image;
 		this.publishedAt = publishedAt;
 		this.content = content;
 		this.status = status;
 	}
-	public int getId() {
-		return id;
+	public int getArticle_id() {
+		return article_id;
 	}
-	public void setId(int id) {
-		this.id = id;
+	public void setArticle_id(int id) {
+		this.article_id = id;
 	}
 	public User getUser() {
 		return user;
@@ -79,13 +79,15 @@ public class Article {
 	public void setStatus(int status) {
 		this.status = status;
 	}
+	public String getTitle(){return title;}
+	public void setTitle(String title) {this.title = title;}
 	@Override
 	public int hashCode() {
 		final int prime = 31;
 		int result = 1;
 		result = prime * result + ((content == null) ? 0 : content.hashCode());
 		result = prime * result + ((description == null) ? 0 : description.hashCode());
-		result = prime * result + id;
+		result = prime * result + article_id;
 		result = prime * result + Arrays.hashCode(image);
 		result = prime * result + ((publishedAt == null) ? 0 : publishedAt.hashCode());
 		result = prime * result + status;
@@ -111,7 +113,7 @@ public class Article {
 				return false;
 		} else if (!description.equals(other.description))
 			return false;
-		if (id != other.id)
+		if (article_id != other.article_id)
 			return false;
 		if (!Arrays.equals(image, other.image))
 			return false;
@@ -131,7 +133,7 @@ public class Article {
 	}
 	@Override
 	public String toString() {
-		return "Article [id=" + id + ", user=" + user + ", description=" + description + ", image="
+		return "Article [id=" + article_id + ", user=" + user + ", description=" + description + ", image="
 				+ Arrays.toString(image) + ", publishedAt=" + publishedAt + ", content=" + content + ", status="
 				+ status + "]";
 	}

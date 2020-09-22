@@ -63,8 +63,8 @@ public class ArticleServiceTests {
         userServiceMock = mock(UserService.class);
         mockUser1 = new User(1, "user1first", "user1last", "user1username", "user1pass", "user1email", null);
         mockUser2 = new User(2, "user2first", "user2last", "user2username", "user2pass", "user2email", null);
-        mockArticle1 = new Article(1, mockUser1, "desc1", null, "pa1", "cont1", 1);
-        mockArticle2 = new Article(2, mockUser2, "desc2", null, "pa2", "cont2", 1);
+        mockArticle1 = new Article(1, mockUser1, "title1", "desc1", null, "pa1", "cont1", 1);
+        mockArticle2 = new Article(2, mockUser2, "title2", "desc2", null, "pa2", "cont2", 1);
         mockLoginTemplate = new LoginTemplate(mockUser1.getUserName(), mockUser1.getPassword());
         setMock.add(mockUser1);
         setMock.add(mockUser2);
@@ -107,7 +107,7 @@ public class ArticleServiceTests {
 	
 	@Test
 	public void testUpdateArticle() {
-		Article mockArticle3 = new Article(1, mockUser1, "desc1", null, "pa1", "cont1", 1);
+		Article mockArticle3 = new Article(1, mockUser1, "title1", "desc1", null, "pa1", "cont1", 1);
 		mockArticle1.setDescription("dddddd");
 		articleServiceMock.update(mockArticle1);
 		Article mockArticle4 = articleServiceMock.findArticleById(1);

@@ -1,38 +1,22 @@
 package com.agora;
 
-import static org.hamcrest.CoreMatchers.equalTo;
 import static org.hamcrest.CoreMatchers.is;
 import static org.junit.Assert.*;
 
-import com.agora.controllers.UserController;
-import com.agora.models.Article;
 import com.agora.models.LoginTemplate;
 import com.agora.models.User;
-import com.agora.repositories.UserDAO;
 import com.agora.services.UserService;
-import io.restassured.http.ContentType;
 import io.restassured.module.mockmvc.RestAssuredMockMvc;
 import org.junit.Before;
 import org.junit.Test;
-import org.mockito.InjectMocks;
-import org.mockito.Matchers;
 import org.mockito.Mock;
 
-import static io.restassured.module.mockmvc.RestAssuredMockMvc.given;
 import static org.mockito.Matchers.*;
 import static org.mockito.Mockito.mock;
 import static org.mockito.Mockito.when;
 import org.mockito.MockitoAnnotations;
-import org.springframework.test.web.servlet.MockMvc;
-import org.springframework.test.web.servlet.setup.MockMvcBuilders;
 
-import java.util.Collections;
 import java.util.Set;
-
-import static io.restassured.module.mockmvc.RestAssuredMockMvc.when;
-import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.*;
-import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.*;
-import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 
 
 public class UserServiceTests {
@@ -126,7 +110,7 @@ public class UserServiceTests {
 //	Getter/Setter Tests
 	@Test
 	public void testUserGetId() {
-		assertEquals(1, userServiceMock.findUserById(1).getId());
+		assertEquals(1, userServiceMock.findUserById(1).getUser_id());
 	}
 	
 	@Test

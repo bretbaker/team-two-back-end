@@ -1,0 +1,8 @@
+<!DOCTYPE suite SYSTEM "http://testing.org/testing-1.0.dtd">
+<suite name="suite1">
+    <test name="test1">
+        <classes>
+            <class name="com.agora.models.User"/>
+        </classes>
+    </test>
+</suite>

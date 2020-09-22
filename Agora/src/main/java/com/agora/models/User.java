@@ -5,6 +5,7 @@ import java.util.Set;
 import javax.persistence.*;
 
 import com.agora.services.HashingService;
+import com.fasterxml.jackson.annotation.JsonManagedReference;
 //import lombok.AllArgsConstructor;
 //import lombok.Data;
 //import lombok.NoArgsConstructor;
@@ -28,7 +29,8 @@ public class User {
 //  This also would not be possible without the help of the EntityListener annotation.
 	private String password;
 	private String email;
-	
+
+	@JsonManagedReference
 	@OneToMany(mappedBy = "user", fetch = FetchType.EAGER, cascade = CascadeType.ALL)
 	private Set<Article> articles;
 

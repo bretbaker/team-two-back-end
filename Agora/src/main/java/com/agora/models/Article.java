@@ -1,6 +1,9 @@
 package com.agora.models;
 
+import com.fasterxml.jackson.annotation.JsonBackReference;
+
 import java.util.Arrays;
+import java.util.Objects;
 
 import javax.persistence.*;
 
@@ -12,6 +15,7 @@ public class Article {
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private int article_id;
 
+	@JsonBackReference
 	@ManyToOne(fetch = FetchType.LAZY)
 	@JoinColumn(name="user_id")
 	private User user;
@@ -81,63 +85,38 @@ public class Article {
 	}
 	public String getTitle(){return title;}
 	public void setTitle(String title) {this.title = title;}
+
 	@Override
-	public int hashCode() {
-		final int prime = 31;
-		int result = 1;
-		result = prime * result + ((content == null) ? 0 : content.hashCode());
-		result = prime * result + ((description == null) ? 0 : description.hashCode());
-		result = prime * result + article_id;
-		result = prime * result + Arrays.hashCode(image);
-		result = prime * result + ((publishedAt == null) ? 0 : publishedAt.hashCode());
-		result = prime * result + status;
-		result = prime * result + ((user == null) ? 0 : user.hashCode());
-		return result;
-	}
-	@Override
-	public boolean equals(Object obj) {
-		if (this == obj)
-			return true;
-		if (obj == null)
-			return false;
-		if (getClass() != obj.getClass())
-			return false;
-		Article other = (Article) obj;
-		if (content == null) {
-			if (other.content != null)
-				return false;
-		} else if (!content.equals(other.content))
-			return false;
-		if (description == null) {
-			if (other.description != null)
-				return false;
-		} else if (!description.equals(other.description))
-			return false;
-		if (article_id != other.article_id)
-			return false;
-		if (!Arrays.equals(image, other.image))
-			return false;
-		if (publishedAt == null) {
-			if (other.publishedAt != null)
-				return false;
-		} else if (!publishedAt.equals(other.publishedAt))
-			return false;
-		if (status != other.status)
-			return false;
-		if (user == null) {
-			if (other.user != null)
-				return false;
-		} else if (!user.equals(other.user))
-			return false;
-		return true;
-	}
-	@Override
-	public String toString() {
-		return "Article [id=" + article_id + ", user=" + user + ", description=" + description + ", image="
-				+ Arrays.toString(image) + ", publishedAt=" + publishedAt + ", content=" + content + ", status="
-				+ status + "]";
+	public boolean equals(Object o) {
+		if (this == o) return true;
+		if (o == null || getClass() != o.getClass()) return false;
+		Article article = (Article) o;
+		return article_id == article.article_id &&
+				status == article.status &&
+				Objects.equals(title, article.title) &&
+				Objects.equals(description, article.description) &&
+				Arrays.equals(image, article.image) &&
+				Objects.equals(publishedAt, article.publishedAt) &&
+				Objects.equals(content, article.content);
 	}
 
-	
-	
+	@Override
+	public int hashCode() {
+		int result = Objects.hash(article_id, title, description, publishedAt, content, status);
+		result = 31 * result + Arrays.hashCode(image);
+		return result;
+	}
+
+	@Override
+	public String toString() {
+		return "Article{" +
+				"article_id=" + article_id +
+				", title='" + title + '\'' +
+				", description='" + description + '\'' +
+				", image=" + Arrays.toString(image) +
+				", publishedAt='" + publishedAt + '\'' +
+				", content='" + content + '\'' +
+				", status=" + status +
+				'}';
+	}
 }

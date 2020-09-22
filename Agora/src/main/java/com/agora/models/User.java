@@ -30,7 +30,7 @@ public class User {
 	private String password;
 	private String email;
 
-	@JsonManagedReference
+	@JsonManagedReference("user-article")
 	@OneToMany(mappedBy = "user", fetch = FetchType.EAGER, cascade = CascadeType.ALL)
 	private Set<Article> articles;
 

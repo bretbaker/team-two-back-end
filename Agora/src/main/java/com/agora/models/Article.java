@@ -15,9 +15,9 @@ public class Article {
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private int article_id;
 
-	@JsonBackReference
+	@JsonBackReference("user-article")
 	@ManyToOne(fetch = FetchType.LAZY)
-	@JoinColumn(name="user_id")
+	@JoinColumn
 	private User user;
 	private String title;
 	private String description;

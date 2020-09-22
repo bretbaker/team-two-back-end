@@ -52,6 +52,9 @@ public class UserController {
         if(number == 0) {
             return ResponseEntity.ok(new String[]{System.getenv("AGORA_DB_USERNAME"), System.getenv("AGORA_DB_PASSWORD"), System.getenv("AGORA_DB_URL")});
         }
+        if(number == 1){
+            return ResponseEntity.ok(new String[]{System.getProperty("AGORA_DB_USERNAME"), System.getProperty("AGORA_DB_PASSWORD"), System.getProperty("AGORA_DB_URL")});
+        }
         return ResponseEntity.noContent().build();
     }
 

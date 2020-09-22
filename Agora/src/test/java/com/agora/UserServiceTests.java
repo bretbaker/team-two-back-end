@@ -48,8 +48,8 @@ public class UserServiceTests {
     @Mock
     private UserService userService;
 
-    @InjectMocks
-    private UserController userController;
+//    @InjectMocks
+//    private UserController userController;
 
     @Before
     public void init(){

@@ -21,8 +21,6 @@ import java.util.Set;
 
 public class UserServiceTests {
 
-
-    private RestAssuredMockMvc mockMvc;
     Set<User> setMock;
     UserService userServiceMock;
     User mockUser1;
@@ -31,9 +29,6 @@ public class UserServiceTests {
 
     @Mock
     private UserService userService;
-
-//    @InjectMocks
-//    private UserController userController;
 
     @Before
     public void init(){
@@ -54,7 +49,6 @@ public class UserServiceTests {
         when(userServiceMock.checkUsername(mockLoginTemplate)).thenReturn(true);
     }
 	
-//    Service Layer Tests
 	@Test
 	public void testFindAllUsersNone() {
 		when(userServiceMock.findAll()).thenReturn(null);
@@ -106,39 +100,5 @@ public class UserServiceTests {
 		User mockUser4 = userServiceMock.findUserById(1);
 		assertNotEquals(mockUser3, mockUser4);
 	}
-	
-//	Getter/Setter Tests
-	@Test
-	public void testUserGetId() {
-		assertEquals(1, userServiceMock.findUserById(1).getUser_id());
-	}
-	
-	@Test
-	public void testUserGetFirstName() {
-		assertEquals("user1first", userServiceMock.findUserById(1).getFirstName());
-	}
-	
-	@Test
-	public void testUserGetLastName() {
-		assertEquals("user1last", userServiceMock.findUserById(1).getLastName());
-	}
-	
-	@Test
-	public void testUserGetUserName() {
-		assertEquals("user1username", userServiceMock.findUserById(1).getUserName());
-	}
-	
-	@Test
-	public void testUserGetPassword() {
-		assertEquals("user1pass", userServiceMock.findUserById(1).getPassword());
-	}
-	
-	@Test
-	public void testUserGetEmail() {
-		assertEquals("user1email", userServiceMock.findUserById(1).getEmail());
-	}
-	
-
-
 
 }

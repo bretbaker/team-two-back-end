@@ -37,7 +37,6 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
 
 public class ArticleServiceTests {
 	
-    private RestAssuredMockMvc mockMvc;
     Set<User> setMock;
     Set<Article> setMock2;
     UserService userServiceMock;
@@ -50,9 +49,6 @@ public class ArticleServiceTests {
 
     @Mock
     private ArticleService articleService;
-
-//    @InjectMocks
-//    private ArticleController articleController;
 
     @Before
     public void init(){
@@ -70,13 +66,6 @@ public class ArticleServiceTests {
         setMock.add(mockUser2);
         setMock2.add(mockArticle1);
         setMock2.add(mockArticle2);
-//        when(userServiceMock.findUserById(anyInt())).thenReturn(null);
-//        when(userServiceMock.findUserById(1)).thenReturn(mockUser1);
-//        when(userServiceMock.findUserById(2)).thenReturn(mockUser2);
-//        when(userServiceMock.findByUserName(anyObject())).thenReturn(null);
-//        when(userServiceMock.findByUserName(mockLoginTemplate)).thenReturn(mockUser1);
-//        when(userServiceMock.checkUsername(anyObject())).thenReturn(false);
-//        when(userServiceMock.checkUsername(mockLoginTemplate)).thenReturn(true);
         when(articleServiceMock.findArticleById(anyInt())).thenReturn(null);
         when(articleServiceMock.findArticleById(1)).thenReturn(mockArticle1);
         when(articleServiceMock.findArticleById(2)).thenReturn(mockArticle2);

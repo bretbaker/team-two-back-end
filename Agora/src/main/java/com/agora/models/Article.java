@@ -17,6 +17,7 @@ public class Article {
 
 	@JsonBackReference("user-article")
 	@ManyToOne(fetch = FetchType.LAZY)
+//	@JoinColumn(name = "user_id")
 	@JoinColumn
 	private User user;
 	private String title;

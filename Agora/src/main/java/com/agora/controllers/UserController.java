@@ -12,13 +12,15 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.servlet.config.annotation.EnableWebMvc;
+
 import com.agora.models.User;
 import com.agora.services.UserService;
 
+//@EnableWebMvc
 @Controller
 @CrossOrigin(origins = "http://localhost:4200")
 @RequestMapping("user")
-
 public class UserController {
 
     private UserService service;

@@ -1,4 +1,4 @@
-package com.agora;
+package com.agora.services;
 
 import static org.hamcrest.CoreMatchers.equalTo;
 import static org.hamcrest.CoreMatchers.is;

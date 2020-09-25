@@ -2,6 +2,7 @@ package com.agora.models;
 
 import com.fasterxml.jackson.annotation.JsonBackReference;
 
+import java.time.LocalDateTime;
 import java.util.Arrays;
 import java.util.Objects;
 
@@ -12,25 +13,26 @@ import javax.persistence.*;
 public class Article {
 	
 	@Id
-	@GeneratedValue(strategy = GenerationType.IDENTITY)
+	@GeneratedValue(strategy = GenerationType.AUTO)
+	@Column(unique = true, nullable = false)
 	private int article_id;
 
-	@JsonBackReference("user-article")
-	@ManyToOne(fetch = FetchType.LAZY)
-//	@JoinColumn(name = "user_id")
-	@JoinColumn
+//	@JsonBackReference("user-article")
+	@ManyToOne(fetch = FetchType.EAGER, cascade = {CascadeType.MERGE, CascadeType.REFRESH, CascadeType.PERSIST})
+	@JoinColumn(name="user_id")
+//	@ManyToOne
 	private User user;
 	private String title;
 	private String description;
 	private byte[] image;
-	private String publishedAt;
+	private LocalDateTime publishedAt;
 	private String content;
 	private int status;
 	
 	public Article() {
 		super();
 	}
-	public Article(int article_id, User user, String title, String description, byte[] image, String publishedAt, String content,
+	public Article(int article_id, User user, String title, String description, byte[] image, LocalDateTime publishedAt, String content,
 				   int status) {
 		super();
 		this.article_id = article_id;
@@ -42,6 +44,17 @@ public class Article {
 		this.content = content;
 		this.status = status;
 	}
+
+	public Article(User user, String title, String description, byte[] image, LocalDateTime publishedAt, String content, int status) {
+		this.user = user;
+		this.title = title;
+		this.description = description;
+		this.image = image;
+		this.publishedAt = publishedAt;
+		this.content = content;
+		this.status = status;
+	}
+
 	public int getArticle_id() {
 		return article_id;
 	}
@@ -66,10 +79,10 @@ public class Article {
 	public void setImage(byte[] image) {
 		this.image = image;
 	}
-	public String getPublishedAt() {
+	public LocalDateTime getPublishedAt() {
 		return publishedAt;
 	}
-	public void setPublishedAt(String publishedAt) {
+	public void setPublishedAt(LocalDateTime publishedAt) {
 		this.publishedAt = publishedAt;
 	}
 	public String getContent() {

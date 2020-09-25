@@ -1,6 +1,9 @@
 package com.agora.controllers;
 import com.agora.models.Article;
+import com.agora.models.PublishArticleTemplate;
+import com.agora.models.User;
 import com.agora.services.ArticleService;
+import com.agora.services.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -11,14 +14,15 @@ import java.util.Set;
 @Controller
 @CrossOrigin(origins = "http://localhost:4200")
 @RequestMapping("article")
-
 public class ArticleController {
 	
 	private ArticleService service;
+	private UserService userService;
 
 	@Autowired
-    public ArticleController(ArticleService service) {
+    public ArticleController(ArticleService service, UserService userService) {
         this.service = service;
+        this.userService = userService;
     }
 
 	@CrossOrigin
@@ -48,11 +52,17 @@ public class ArticleController {
 	@CrossOrigin
     @PostMapping
     @ResponseBody
-    public ResponseEntity<Article> insertArticle(@RequestBody Article article) {
-        if(article.getArticle_id() != 0) {
+    public ResponseEntity<Article> insertArticle(@RequestBody PublishArticleTemplate publishArticleTemplate) {
+	    System.out.println(publishArticleTemplate.getUser_id());
+        User user = userService.findUserById(publishArticleTemplate.getUser_id());
+
+
+        Article article = new Article(user, publishArticleTemplate.getTitle(), publishArticleTemplate.getDescription(), publishArticleTemplate.getImage(), publishArticleTemplate.getPublishedAt(),
+                publishArticleTemplate.getContent(), publishArticleTemplate.getStatus());
+
+	    if(article.getArticle_id() != 0) {
             return ResponseEntity.badRequest().build();
         }
-
 
         service.save(article);
 

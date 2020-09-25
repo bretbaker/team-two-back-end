@@ -35,8 +35,8 @@ public class UserServiceTests {
         MockitoAnnotations.initMocks(this);
         setMock = mock(Set.class);
         userServiceMock = mock(UserService.class);
-        mockUser1 = new User(1, "user1first", "user1last", "user1username", "user1pass", "user1email", null);
-        mockUser2 = new User(2, "user2first", "user2last", "user2username", "user2pass", "user2email", null);
+        mockUser1 = new User(1, "user1first", "user1last", "user1username", "user1pass", "user1email");
+        mockUser2 = new User(2, "user2first", "user2last", "user2username", "user2pass", "user2email");
         mockLoginTemplate = new LoginTemplate(mockUser1.getUserName(), mockUser1.getPassword());
         setMock.add(mockUser1);
         setMock.add(mockUser2);
@@ -94,7 +94,7 @@ public class UserServiceTests {
 
 	@Test
 	public void testUpdateUser() {
-		User mockUser3 = new User(1, "user1first", "user1last", "user1username", "user1pass", "user1email", null);
+		User mockUser3 = new User(1, "user1first", "user1last", "user1username", "user1pass", "user1email");
 		mockUser1.setFirstName("Tom");
 		userServiceMock.update(mockUser1);
 		User mockUser4 = userServiceMock.findUserById(1);

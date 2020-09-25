@@ -53,7 +53,6 @@ public class ArticleDAO {
         Transaction tx = session.beginTransaction();
 
         session.save(art);
-
         tx.commit();
     }
 

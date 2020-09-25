@@ -29,18 +29,20 @@ public class UserDAO {
     public User findUserById(int user_id) {
         Session session = HibernateUtil.getSession();
         Transaction tx = session.beginTransaction();
-    try {
-        User result = session.createQuery("FROM User u where user_id = ?1", User.class)
-                .setParameter(1, user_id)
-                .getSingleResult();
+        try {
+            User result = session.createQuery("FROM User u where user_id = ?1", User.class)
+                    .setParameter(1, user_id)
+                    .getSingleResult();
 
-        tx.commit();
-        return result;
-    } catch(NoResultException e) {
-        e.printStackTrace();
-        tx.rollback();
-        return null;
-    }
+            tx.commit();
+            System.out.println(result);
+            return result;
+        } catch(NoResultException e) {
+            System.out.println(user_id);
+            e.printStackTrace();
+            tx.rollback();
+            return null;
+        }
 
     }
 

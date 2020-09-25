@@ -47,19 +47,6 @@ public class UserController {
 
 
     @CrossOrigin
-    @GetMapping(value="{number}")
-    @ResponseBody
-    public ResponseEntity<String[]> showEnv(@PathVariable int number) {
-        if(number == 0) {
-            return ResponseEntity.ok(new String[]{System.getenv("AGORA_DB_USERNAME"), System.getenv("AGORA_DB_PASSWORD"), System.getenv("AGORA_DB_URL")});
-        }
-        if(number == 1){
-            return ResponseEntity.ok(new String[]{System.getProperty("AGORA_DB_USERNAME"), System.getProperty("AGORA_DB_PASSWORD"), System.getProperty("AGORA_DB_URL")});
-        }
-        return ResponseEntity.noContent().build();
-    }
-
-    @CrossOrigin
     @GetMapping(value = "{id}", produces = "application/json")
     @ResponseBody
     public ResponseEntity<User> findById(@PathVariable String id) {
@@ -91,7 +78,7 @@ public class UserController {
     }
 
     @CrossOrigin
-    @RequestMapping(value = "/login", method = RequestMethod.POST)
+    @PostMapping(value = "/login")
     @ResponseBody
     public ResponseEntity<User> signIn(@RequestBody LoginTemplate loginTemplate) {
 
